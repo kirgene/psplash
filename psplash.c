@@ -280,17 +280,6 @@ main (int argc, char** argv)
 			 POKY_IMG_BYTES_PER_PIXEL,
 			 POKY_IMG_RLE_PIXEL_DATA);
 
-  /* Draw progress bar border */
-  psplash_fb_draw_image (fb, 
-			 (fb->width  - BAR_IMG_WIDTH)/2, 
-			 fb->height - (fb->height/6), 
-			 BAR_IMG_WIDTH,
-			 BAR_IMG_HEIGHT,
-			 BAR_IMG_BYTES_PER_PIXEL,
-			 BAR_IMG_RLE_PIXEL_DATA);
-
-  psplash_draw_progress (fb, 0);
-
   psplash_draw_msg (fb, MSG);
 
   psplash_fb_flush (fb);
