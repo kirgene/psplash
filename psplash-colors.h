@@ -20,7 +20,7 @@
 #define _HAVE_PSPLASH_COLORS_H
 
 /* This is the overall background color */
-#define PSPLASH_BACKGROUND_COLOR 0x0,0x0,0x0
+#define PSPLASH_BACKGROUND_COLOR 0xff,0x8a,0x0
 
 /* This is the color of any text output */
 #define PSPLASH_TEXT_COLOR 0xff,0xff,0xff
