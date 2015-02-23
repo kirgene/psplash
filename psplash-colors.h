@@ -23,7 +23,7 @@
 #define PSPLASH_BACKGROUND_COLOR 0xff,0x8a,0x0
 
 /* This is the color of any text output */
-#define PSPLASH_TEXT_COLOR 0xff,0xff,0xff
+#define PSPLASH_TEXT_COLOR 0x00,0x00,0x00
 
 /* This is the color of the progress bar indicator */
 #define PSPLASH_BAR_COLOR 0x0,0x0,0x0
