@@ -268,8 +268,16 @@ main (int argc, char** argv)
   }
 
   /* Clear the background with #ecece1 */
-  psplash_fb_draw_rect (fb, 0, 0, fb->width, fb->height,
-                        PSPLASH_BACKGROUND_COLOR);
+  if (fb->rgbmode == RGB888 && fb->bpp == 24) {
+	  int dx, dy;
+	  unsigned int color = psplash_fb_rgb2int(PSPLASH_BACKGROUND_COLOR);
+	  for (dy=0; dy < fb->height; dy++)
+		  for (dx=0; dx < fb->width; dx++)
+			  psplash_fb_set_pixel(fb, dx, dy, color);
+  } else {
+	  psplash_fb_draw_rect (fb, 0, 0, fb->width, fb->height,
+			  PSPLASH_BACKGROUND_COLOR);
+  }
 
   /* Draw the Poky logo  */
   psplash_fb_draw_image (fb, 

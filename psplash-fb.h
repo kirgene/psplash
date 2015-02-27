@@ -105,5 +105,7 @@ psplash_fb_draw_text (PSplashFB         *fb,
 		      const PSplashFont *font,
 		      const char        *text);
 
+inline void psplash_fb_set_pixel(PSplashFB *fb, int x, int y, unsigned int color);
+inline int psplash_fb_rgb2int(int r, int g, int b);
 
 #endif

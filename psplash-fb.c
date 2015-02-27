@@ -540,3 +540,14 @@ psplash_fb_draw_text (PSplashFB         *fb,
     }
 }
 
+inline void psplash_fb_set_pixel(PSplashFB *fb, int x, int y, unsigned int color)
+{
+        volatile unsigned int* framePtr;
+        framePtr = (unsigned int*)( fb->data + OFFSET (fb, x, y) );
+        *framePtr = color;
+}
+
+inline int psplash_fb_rgb2int(int r, int g, int b)
+{
+	return (r << 16) | (g << 8) | b;
+}
