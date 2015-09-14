@@ -26,6 +26,8 @@ enum RGBMode {
     GENERIC,
 };
 
+#define OFFSET(fb,x,y) (((y) * (fb)->stride) + ((x) * ((fb)->bpp >> 3)))
+
 typedef struct PSplashFB
 {
   int            fd;			
@@ -61,7 +63,7 @@ psplash_fb_new (int angle);
 void
 psplash_fb_flush (PSplashFB *fb);
 
-inline void
+void
 psplash_fb_plot_pixel (PSplashFB    *fb, 
 		       int          x, 
 		       int          y, 
@@ -105,7 +107,13 @@ psplash_fb_draw_text (PSplashFB         *fb,
 		      const PSplashFont *font,
 		      const char        *text);
 
-inline void psplash_fb_set_pixel(PSplashFB *fb, int x, int y, unsigned int color);
-inline int psplash_fb_rgb2int(int r, int g, int b);
+inline uint16_t RGB888_TO_RGB565_INT(int r, int g, int b)
+{ 
+	return ((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3);
+}
+inline uint32_t RGB888_TO_INT(int r, int g, int b)
+{
+	return (r << 16) | (g << 8) | b;
+}
 
 #endif

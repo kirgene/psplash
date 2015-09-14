@@ -25,6 +25,9 @@
 
 #define MSG ""
 
+extern inline uint16_t RGB888_TO_RGB565_INT(int r, int g, int b);
+extern inline uint32_t RGB888_TO_INT(int r, int g, int b);
+
 void
 psplash_exit (int signum)
 {
@@ -270,10 +273,19 @@ main (int argc, char** argv)
   /* Clear the background with #ecece1 */
   if (fb->rgbmode == RGB888 && fb->bpp == 24) {
 	  int dx, dy;
-	  unsigned int color = psplash_fb_rgb2int(PSPLASH_BACKGROUND_COLOR);
+	  unsigned int color = RGB888_TO_INT(PSPLASH_BACKGROUND_COLOR);
 	  for (dy=0; dy < fb->height; dy++)
-		  for (dx=0; dx < fb->width; dx++)
-			  psplash_fb_set_pixel(fb, dx, dy, color);
+		  for (dx=0; dx < fb->width; dx++) {
+			  *(volatile uint32_t *) (fb->data + OFFSET (fb, dx, dy)) = color;
+
+		  }
+  } else if (fb->rgbmode == RGB565 && fb->bpp == 16) {
+	  int dx, dy;
+	  uint16_t color = RGB888_TO_RGB565_INT(PSPLASH_BACKGROUND_COLOR);
+	  for (dy=0; dy < fb->height; dy++)
+		  for (dx=0; dx < fb->width; dx++) {
+			  *(volatile uint16_t *) (fb->data + OFFSET (fb, dx, dy)) = color;
+		  }
   } else {
 	  psplash_fb_draw_rect (fb, 0, 0, fb->width, fb->height,
 			  PSPLASH_BACKGROUND_COLOR);

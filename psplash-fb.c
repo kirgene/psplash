@@ -276,9 +276,7 @@ psplash_fb_new (int angle)
   return NULL;
 }
 
-#define OFFSET(fb,x,y) (((y) * (fb)->stride) + ((x) * ((fb)->bpp >> 3)))
-
-inline void
+void
 psplash_fb_plot_pixel (PSplashFB    *fb,
 		       int          x,
 		       int          y,
@@ -538,16 +536,4 @@ psplash_fb_draw_text (PSplashFB         *fb,
 
       dx += w;
     }
-}
-
-inline void psplash_fb_set_pixel(PSplashFB *fb, int x, int y, unsigned int color)
-{
-        volatile unsigned int* framePtr;
-        framePtr = (unsigned int*)( fb->data + OFFSET (fb, x, y) );
-        *framePtr = color;
-}
-
-inline int psplash_fb_rgb2int(int r, int g, int b)
-{
-	return (r << 16) | (g << 8) | b;
 }
